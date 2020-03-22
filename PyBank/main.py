@@ -1,15 +1,14 @@
 #PyBank
 
 #Import OS and CSV modules
-
 import os
 import csv
 
-#Name the .csv file path
+#Name the .csv file path and output path for text file
 csvpath = os.path.join('budget_data.csv')
 output_path = ('financial_analysis.txt')
 
-#Declare variables
+#Declare variables and empty lists
 total_months = 0
 total_pl = 0
 greatest_increase = 0
@@ -34,6 +33,7 @@ with open(csvpath) as csvfile:
     #add each value in the 'Profit/Losses' column to a list as a floating decimal value,
     #sum up all the values in the list to get the total profit/loss and format that value as currency
     for row in csvreader:
+        
         #total_pl += float(row[1])
         total_months += 1
         total_list.append(float(row[1]))
@@ -68,7 +68,7 @@ with open(csvpath) as csvfile:
         change_list.append(total_list[i] - total_list[i-1])
         average_change = sum(change_list) / len(change_list)
 
-        average_format = format(average_change, ",.2f")          
+        average_format = format(average_change, ",.2f")     
 
     #Print out all of the results
     print(f"Total Months: {total_months}")
@@ -88,3 +88,5 @@ with open(output_path, 'w') as datafile:
     datafile.write("Average Change: $" + str(average_format) + "\n")
     datafile.write("Greatest Increase in Profits: " + increase_period + " $(" + str(increase_format) + ")\n")
     datafile.write("Greatest Decrease in Losses: " + decrease_period + " $(" + str(decrease_format) + ")\n")
+
+
